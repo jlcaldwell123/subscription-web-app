@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+div::-webkit-scrollbar {
+  display: none;
+}
+
+.data-table {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  margin-top: 10vh;
+  border: 2px black;
+  border-style: solid;
+  height: 80vh;
+  border-radius: 25px;
+}
+
+.data-table table th {
+  border-top: none;
+}
+
