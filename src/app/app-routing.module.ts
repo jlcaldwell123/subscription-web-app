@@ -11,13 +11,11 @@ import {PaymentsComponent} from './payments/payments.component';
 const routes: Routes = [
   {
     path: '',
-    component: SubscriptionsComponent,
-    canActivate: [AuthGuard]
+    component: SubscriptionsComponent
   },
   {
     path: 'subscriptions',
-    component: SubscriptionsComponent,
-    canActivate: [AuthGuard]
+    component: SubscriptionsComponent
   },
   {
     path: 'login',
