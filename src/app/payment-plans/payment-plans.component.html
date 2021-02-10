@@ -1,0 +1,69 @@
+<div class="data-table">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Occurence</th>
+      <th scope="col"># of Active Subscriptions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let paymentPlan of paymentPlans">
+      <th scope="row" (click)="openPaymentPlan(paymentPlan)"><img>pencil</th>
+      <td>{{paymentPlan.name}}</td>
+      <td>${{paymentPlan.amount}}</td>
+      <td>{{paymentPlan.occurrence}}</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th scope="row" (click)="newPaymentPlan()">+</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="displayModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-title">
+      <div class="header-title">
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="10 Class Membership" name="routePlanName" [(ngModel)]="selectedPaymentPlan.name">
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Amount to Charge</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="19.99" [(ngModel)]="selectedPaymentPlan.amount">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Occurence</label>
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedPaymentPlan.occurrence">
+          <option>Daily</option>
+          <option>Bi-Weekly</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div>
+        <label for="exampleFormControlSelect1">Payment Methods to Accept</label>
+        </div>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary" *ngFor="let paymentMethod of paymentMethods" (click)="togglePaymentMethod(paymentMethod)">
+            <input class="hiddenCheckbox" type="checkbox" value="{{paymentMethod}}">{{paymentMethod}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="savePaymentPlan()">Save changes</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

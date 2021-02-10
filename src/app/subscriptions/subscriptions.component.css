@@ -1,0 +1,35 @@
+.employeesContainer {
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+.filterContainer {
+  width: 100%;
+  height: 30vh;
+  margin-top: 10px;
+}
+
+.header {
+  display: block;
+}
+
+.header h2 {
+  text-align: center;
+}
+
+.header button {
+  display: inline-block;
+  float: right;
+}
+.scheduledEmployeesHeader {
+  text-align: center;
+}
+
+.card-header h5 {
+  display: inline-block;
+}
+
+.card-header input {
+  display: inline-block;
+  float: right;
+}

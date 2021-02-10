@@ -1,0 +1,68 @@
+<div class="data-table">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Contact Method</th>
+      <th scope="col"># of Active Subscriptions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers">
+      <th scope="row" (click)="openCustomer(customer)"><img>pencil</th>
+      <td>{{customer.firstName}}</td>
+      <td>{{customer.lastName}}</td>
+      <td>{{customer.contactMethod}}</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th scope="row" (click)="newCustomer()">+</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="displayModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-title">
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div>
+      <div class="form-group">
+        <label for="firstNameInput">First Name</label>
+        <input type="email" class="form-control" id="firstNameInput" placeholder="John" [(ngModel)]="selectedCustomer.firstName">
+      </div>
+      <div class="form-group">
+        <label for="lastNameInput">Last Name</label>
+        <input type="email" class="form-control" id="lastNameInput" placeholder="Doe" [(ngModel)]="selectedCustomer.lastName">
+      </div>
+      <div class="form-group">
+        <label for="emailInput">Email Address</label>
+        <input type="email" class="form-control" id="emailInput" placeholder="something@mail.com" [(ngModel)]="selectedCustomer.emailAddress">
+      </div>
+      <div class="form-group">
+        <label for="phoneInput">Phone Number</label>
+        <input type="email" class="form-control" id="phoneInput" placeholder="423-605-8135" [(ngModel)]="selectedCustomer.phoneNumber">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Occurence</label>
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedCustomer.contactMethod">
+          <option>Email</option>
+          <option>Phone</option>
+          <option>None</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="saveCustomer()">Save changes</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
