@@ -45,14 +45,16 @@
       <div class="card">
         <div class="card-header" id="paymentPlanHeadings">
           <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#shiftCollapse,#searchBar" aria-expanded="true" aria-controls="shiftCollapse">
+            <button class="btn btn-link" aria-expanded="false" aria-controls="shiftCollapse" (click)="togglePaymentPlans()">
               Payment Plans
             </button>
           </h5>
-          <input id="searchBar" class="collapse" (keyup)="filterPaymentPlans($event)">
+          <div *ngIf="selectedPaymentPlan && selectedPaymentPlan.name">
+            {{selectedPaymentPlan.name}}
+          </div>
         </div>
 
-        <div id="shiftCollapse" class="collapse" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
+        <div id="shiftCollapse" [class]="{'collapse': !paymentPlansExpanded}" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-4" *ngFor="let paymentPlan of availablePaymentPlans">
@@ -65,14 +67,16 @@
       <div class="card">
         <div class="card-header" id="customerHeadings">
           <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#customerCollapse,#customerSearchBar" aria-expanded="true" aria-controls="shiftCollapse">
+            <button class="btn btn-link" aria-expanded="true" aria-controls="shiftCollapse" (click)="toggleCustomers()">
               Customers
             </button>
           </h5>
-          <input id="customerSearchBar" class="collapse" (keyup)="filterPaymentPlans($event)">
+          <div *ngIf="selectedCustomer && (selectedCustomer.firstName || selectedCustomer.lastName)">
+            {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
+          </div>
         </div>
 
-        <div id="customerCollapse" class="collapse" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
+        <div id="customerCollapse" [class]="{'collapse': !customersExpanded}" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-4" *ngFor="let customer of customers">

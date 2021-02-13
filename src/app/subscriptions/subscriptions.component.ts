@@ -20,6 +20,9 @@ export class SubscriptionsComponent implements OnInit {
   customers: Customer[];
   availablePaymentPlans: PaymentPlan[];
   selectedPaymentPlan;
+  selectedCustomer;
+  paymentPlansExpanded;
+  customersExpanded;
 
   constructor(private paymentPlanService: PaymentPlanService, private customerService: CustomerService) { }
 
@@ -37,6 +40,7 @@ export class SubscriptionsComponent implements OnInit {
 
   showModal(): void {
     this.displayModal = true;
+    this.paymentPlansExpanded = false;
     this.availablePaymentPlans = this.paymentPlans;
   }
 
@@ -63,10 +67,20 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   selectPaymentPlan(paymentPlan: PaymentPlan): void {
-
+    this.selectedPaymentPlan = paymentPlan;
+    this.togglePaymentPlans();
   }
 
   selectCustomer(customer: Customer): void {
+    this.selectedCustomer = customer;
+    this.toggleCustomers();
+  }
 
+  togglePaymentPlans(): void {
+    this.paymentPlansExpanded = !this.paymentPlansExpanded;
+  }
+
+  toggleCustomers(): void {
+    this.customersExpanded = !this.customersExpanded;
   }
 }

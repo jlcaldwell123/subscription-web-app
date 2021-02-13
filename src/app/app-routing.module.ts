@@ -6,6 +6,7 @@ import {LoginComponent} from './login/login.component';
 import {PaymentPlansComponent} from './payment-plans/payment-plans.component';
 import {CustomersComponent} from './customers/customers.component';
 import {PaymentsComponent} from './payments/payments.component';
+import {VirtualTerminalComponent} from './virtual-terminal/virtual-terminal.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsComponent
+  },
+  {
+    path: 'virtual-terminal',
+    component: VirtualTerminalComponent
   }
 ];
 

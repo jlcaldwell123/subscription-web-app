@@ -33,3 +33,11 @@
   display: inline-block;
   float: right;
 }
+
+#shiftCollapse {
+  -webkit-transition: collapse 1s;
+  -moz-transition: collapse 1s;
+  -ms-transition: collapse 1s;
+  -o-transition: collapse 1s;
+  transition: collapse 1s;
+}

@@ -1,0 +1,11 @@
+.terminal-border {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 15px;
+  width: 90%;
+  margin-top: 10vh;
+  border: 2px black;
+  border-style: solid;
+  height: 80vh;
+  border-radius: 25px;
+}

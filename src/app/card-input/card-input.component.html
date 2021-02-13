@@ -1,0 +1,56 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First Name</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="John">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Last Name</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Doe">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label for="tokenFrame">Credit Card Number</label>
+      <iframe id="tokenframe" name="tokenframe" (message)="printToken($event)" src="https://fts-uat.cardconnect.com/itoke/ajax-tokenizer.html?css=%2Eerror%7Bcolor%3A+red%3B%7Dinput%7Bwidth%3Acalc%28100%25-6px%29%3Bheight%3A24px%3Bpadding-top%3A6px%3Bpadding-bottom%3A6px%3Bborder%3A1px+solid+%23ced4da%3B%7Dbody%7Bmargin%3A0%3B%7D" scrolling="no" width="100%" height="38" frameborder="0"></iframe>    </div>
+    <div class="form-group col-md-4">
+      <label for="cvv">CVV</label>
+      <input type="text" class="form-control" id="cvv">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Save for Future Use
+      </label>
+    </div>
+  </div>
+  <input type="hidden" name="mytoken" id="mytoken"/>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>

@@ -19,6 +19,8 @@ import {DemoMaterialModule} from './material-module';
 import { PaymentPlansComponent } from './payment-plans/payment-plans.component';
 import { CustomersComponent } from './customers/customers.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { VirtualTerminalComponent } from './virtual-terminal/virtual-terminal.component';
+import { CardInputComponent } from './card-input/card-input.component';
 
 
 
@@ -31,7 +33,9 @@ import { PaymentsComponent } from './payments/payments.component';
     LoginComponent,
     PaymentPlansComponent,
     CustomersComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    VirtualTerminalComponent,
+    CardInputComponent
   ],
   imports: [
     BrowserModule,
