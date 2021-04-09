@@ -25,6 +25,12 @@ jobs:
         run: |
           npm i
           npm run build
+      - name: Scan
+        uses: tidelift/scan-action@main
+        env:
+          TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
+          TIDELIFT_ORGANIZATION: ${{ secrets.TIDELIFT_ORGANIZATION }}
+          TIDELIFT_PROJECT: ${{ secrets.TIDELIFT_PROJECT }}
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
