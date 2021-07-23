@@ -1,1 +1,45 @@
-<p>payments works!</p>
+<div class="data-table">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Occurence</th>
+      <th scope="col"># of Active Subscriptions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <th scope="row" (click)="openTransaction(transaction)"><img>pencil</th>
+      <td>{{transaction.amount}}</td>
+      <td>${{transaction.paymentMethod.cardHolderName}}</td>
+      <td>test</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th scope="row" (click)="newTransaction()">+</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="displayModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-title">
+      <div class="header-title">
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="10 Class Membership" name="routePlanName" [(ngModel)]="selectedTransaction.name">
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="saveTransaction()">Save changes</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

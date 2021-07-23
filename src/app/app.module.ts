@@ -7,7 +7,7 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
 import {AuthGuard} from './auth/auth.guard';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
 import {HttpErrorHandler} from './http-error-handler.service';
 import {MessageService} from './message.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,8 +21,6 @@ import { CustomersComponent } from './customers/customers.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { VirtualTerminalComponent } from './virtual-terminal/virtual-terminal.component';
 import { CardInputComponent } from './card-input/card-input.component';
-
-
 
 
 @NgModule({

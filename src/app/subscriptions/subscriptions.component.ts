@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PaymentPlan} from '../data-objects/paymentPlan';
 import {PaymentPlanService} from '../services/paymentPlan.service';
 import {CustomerService} from '../services/customer.service';
 import {Customer} from '../data-objects/customer';
+import {SubscriptionService} from '../services/subscription.service';
+import {CardInputComponent} from '../card-input/card-input.component';
+import {Subscription} from '../data-objects/subscription';
+import {MatStepper} from '@angular/material/stepper';
+import * as _moment from 'moment';
 
 @Component({
   selector: 'app-subscriptions',
@@ -10,7 +15,8 @@ import {Customer} from '../data-objects/customer';
   styleUrls: ['./subscriptions.component.css'],
   providers: [
     PaymentPlanService,
-    CustomerService
+    CustomerService,
+    SubscriptionService
   ]
 })
 export class SubscriptionsComponent implements OnInit {
@@ -23,8 +29,12 @@ export class SubscriptionsComponent implements OnInit {
   selectedCustomer;
   paymentPlansExpanded;
   customersExpanded;
+  subscriptions;
+  selectedDate;
 
-  constructor(private paymentPlanService: PaymentPlanService, private customerService: CustomerService) { }
+  @ViewChild(CardInputComponent) cardInput: CardInputComponent;
+
+  constructor(private paymentPlanService: PaymentPlanService, private customerService: CustomerService, private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
     this.displayModal = false;
@@ -35,6 +45,10 @@ export class SubscriptionsComponent implements OnInit {
     this.customerService.getCustomers()
       .subscribe(customers => {
         this.customers = customers;
+      });
+    this.subscriptionService.getSubscriptions()
+      .subscribe(subscriptions => {
+        this.subscriptions = subscriptions;
       });
   }
 
@@ -49,7 +63,17 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   saveSubscription(): void {
-    this.displayModal = false;
+    if (this.cardInput.isFormValid(false)) {
+      const subscription = new Subscription();
+      subscription.paymentMethod = this.cardInput.getPaymentMethod();
+      subscription.contact = this.selectedCustomer;
+      subscription.paymentPlan = this.selectedPaymentPlan;
+      subscription.startDate = this.getStartDate();
+      this.subscriptionService.addSubscriptions([subscription])
+        .subscribe(update => {
+          this.displayModal = false;
+        });
+    }
   }
 
   filterPaymentPlans(input: any): void {
@@ -66,14 +90,43 @@ export class SubscriptionsComponent implements OnInit {
     }
   }
 
-  selectPaymentPlan(paymentPlan: PaymentPlan): void {
+  selectPaymentPlan(paymentPlan: PaymentPlan, stepper: MatStepper): void {
     this.selectedPaymentPlan = paymentPlan;
-    this.togglePaymentPlans();
+    stepper.next();
   }
 
-  selectCustomer(customer: Customer): void {
+  selectCustomer(customer: Customer,  stepper: MatStepper): void {
     this.selectedCustomer = customer;
-    this.toggleCustomers();
+    stepper.next();
+  }
+
+  setDate(event: any, stepper: MatStepper): void {
+    this.selectedDate = event;
+    stepper.next();
+  }
+
+  getCard(): string {
+    if (this.cardInput && this.cardInput.isFormValid(false)) {
+      return this.cardInput.getPaymentMethod().token;
+    } else {
+      return 'Invalid Card Information';
+    }
+  }
+
+  getStartDate(): string {
+    return _moment(this.selectedDate, 'YYYY/MM/DD HH:mm:ss').toISOString();
+  }
+
+  isLastPage(stepper: MatStepper): boolean {
+    return (stepper.selectedIndex === (stepper.steps.length - 1));
+  }
+
+  isSubscriptionComplete(): boolean {
+    if (this.getStartDate() && this.selectedCustomer && this.selectedPaymentPlan && this.cardInput.isFormValid(false)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   togglePaymentPlans(): void {

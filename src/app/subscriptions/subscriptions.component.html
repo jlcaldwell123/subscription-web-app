@@ -10,22 +10,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr *ngFor="let subscription of subscriptions">
       <th scope="row" (click)="showModal()"><img>pencil</th>
-      <td>Richard Taylor</td>
-      <td>Monthly</td>
-      <td>$14.99</td>
+      <td>{{subscription.contact.firstName}} {{subscription.contact.lastName}}</td>
+      <td>{{subscription.paymentPlan.occurrence}}</td>
+      <td>{{subscription.paymentPlan.amount}}</td>
       <td>Active</td>
     </tr>
     <tr>
-      <th scope="row">1</th>
-      <td>James Caldwell</td>
-      <td>Monthly</td>
-      <td>$14.99</td>
-      <td>Frozen</td>
-    </tr>
-    <tr>
-      <th scope="row">+</th>
+      <th scope="row" (click)="showModal()">+</th>
       <td></td>
       <td></td>
       <td></td>
@@ -35,61 +28,66 @@
   </table>
 </div>
 <div *ngIf="displayModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-content">
-    <div class="modal-title">
+  <div class="modal-content-fixed">
+    <div>
       <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div id="shiftEmployees">
-      <div class="card">
-        <div class="card-header" id="paymentPlanHeadings">
-          <h5 class="mb-0">
-            <button class="btn btn-link" aria-expanded="false" aria-controls="shiftCollapse" (click)="togglePaymentPlans()">
-              Payment Plans
-            </button>
-          </h5>
-          <div *ngIf="selectedPaymentPlan && selectedPaymentPlan.name">
-            {{selectedPaymentPlan.name}}
+    <mat-horizontal-stepper #stepper>
+      <mat-step label="Customer" state="chat">
+        <div class="row">
+          <div class="col-sm-4" *ngFor="let customer of customers">
+            <button class="btn btn-primary" (click)="selectCustomer(customer, stepper)"> {{ customer.firstName}} {{customer.lastName}}</button>
           </div>
         </div>
+      </mat-step>
+      <mat-step label="Payment Plan" state="phone">
+        <div class="row">
+          <div class="col-sm-4" *ngFor="let paymentPlan of availablePaymentPlans">
+            <button class="btn btn-primary" (click)="selectPaymentPlan(paymentPlan, stepper)"> {{ paymentPlan.name }}</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step label="Start Date">
+        <mat-card class="demo-inline-calendar-card">
+          <mat-calendar [selected]="selectedDate" (selectedChange)="setDate($event, stepper)"></mat-calendar>
+        </mat-card>
+      </mat-step>
+      <mat-step label="Credit Card">
+        <app-card-input></app-card-input>
+      </mat-step>
+      <mat-step label="Confirmation">
+        <div>
+          <h5>Customer:</h5>
+          <div *ngIf="selectedCustomer">{{selectedCustomer.firstName}} {{selectedCustomer.lastName}}</div>
+        </div>
+        <div>
+          <h5>Payment Plan:</h5>
+          <div *ngIf="selectedPaymentPlan">Payment Plan: {{selectedPaymentPlan.name}}</div>
+        </div>
+        <div>
+          <h5>Start Date:</h5>
+          <div>{{getStartDate()}}</div>
+        </div>
+        <div>
+          <h5>Card:</h5>
+          <div>{{getCard()}}</div>
+        </div>
+      </mat-step>
 
-        <div id="shiftCollapse" [class]="{'collapse': !paymentPlansExpanded}" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4" *ngFor="let paymentPlan of availablePaymentPlans">
-                <button class="btn btn-primary" (click)="selectPaymentPlan(paymentPlan)"> {{ paymentPlan.name }}</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="customerHeadings">
-          <h5 class="mb-0">
-            <button class="btn btn-link" aria-expanded="true" aria-controls="shiftCollapse" (click)="toggleCustomers()">
-              Customers
-            </button>
-          </h5>
-          <div *ngIf="selectedCustomer && (selectedCustomer.firstName || selectedCustomer.lastName)">
-            {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
-          </div>
-        </div>
-
-        <div id="customerCollapse" [class]="{'collapse': !customersExpanded}" aria-labelledby="shiftHeading" data-parent="#shiftEmployees">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4" *ngFor="let customer of customers">
-                <button class="btn btn-primary" (click)="selectCustomer(customer)"> {{ customer.firstName}} {{customer.lastName}}</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="saveSubscription()">Save changes</button>
-      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      <!-- Icon overrides. -->
+      <ng-template matStepperIcon="phone">
+        <mat-icon>call_end</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="chat">
+        <mat-icon>forum</mat-icon>
+      </ng-template>
+    </mat-horizontal-stepper>
+    <div class="modal-footer fixed">
+      <button type="button" class="btn btn-secondary" (click)="stepper.previous()">Previous</button>
+      <button *ngIf="!isLastPage(stepper)" type="button" class="btn btn-primary" (click)="stepper.next()">Next</button>
+      <button *ngIf="isLastPage(stepper)" [disabled]="!isSubscriptionComplete()" type="button" class="btn btn-primary" (click)="saveSubscription()">Submit</button>
     </div>
   </div>
 </div>

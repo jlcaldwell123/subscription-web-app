@@ -7,4 +7,5 @@ export class PaymentPlan {
   currency?: string;
   limit?: string;
   status?: string;
+  dayOfBilling?: string;
 }

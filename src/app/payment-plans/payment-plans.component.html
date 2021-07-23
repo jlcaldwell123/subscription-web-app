@@ -50,6 +50,10 @@
           <option>Monthly</option>
         </select>
       </div>
+      <div *ngIf="selectedPaymentPlan.occurrence" class="form-group">
+        <label for="dayOfBillingInput">Day to Bill On</label>
+        <input type="email" class="form-control" id="dayOfBillingInput" placeholder="1" [(ngModel)]="selectedPaymentPlan.dayOfBilling">
+      </div>
       <div class="form-group">
         <div>
         <label for="exampleFormControlSelect1">Payment Methods to Accept</label>

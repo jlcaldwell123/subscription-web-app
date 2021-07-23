@@ -3,6 +3,10 @@
   height: calc(100vh - 70px);
 }
 
+.demo-inline-calendar-card {
+  width: 50%;
+}
+
 .filterContainer {
   width: 100%;
   height: 30vh;
@@ -40,4 +44,9 @@
   -ms-transition: collapse 1s;
   -o-transition: collapse 1s;
   transition: collapse 1s;
+}
+
+.card-input-container {
+  margin-left: 10px;
+  margin-right: 10px;
 }

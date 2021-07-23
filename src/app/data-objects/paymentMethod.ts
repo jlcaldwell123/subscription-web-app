@@ -7,4 +7,5 @@ export class PaymentMethod {
   expirationDate?: string;
   cardHolderName?: string;
   billingAddress?: Address;
+  cvv?: string;
 }

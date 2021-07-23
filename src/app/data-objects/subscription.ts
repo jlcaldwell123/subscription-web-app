@@ -7,4 +7,8 @@ export class Subscription {
   paymentMethod?: PaymentMethod;
   paymentPlan?: PaymentPlan;
   contact?: Contact;
+  startDate?: string;
+  status?: string;
+  lastPaymentDate?: string;
+  merchantId?: string;
 }
