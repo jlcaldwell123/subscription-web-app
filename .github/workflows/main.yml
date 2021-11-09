@@ -26,7 +26,7 @@ jobs:
           npm i
           npm run build
       - name: Scan
-        with:
+        env:
           TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
         continue-on-error: true
         run: |
