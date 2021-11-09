@@ -26,6 +26,8 @@ jobs:
           npm i
           npm run build
       - name: Scan
+        with:
+          TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
         continue-on-error: true
         run: |
           echo "Downloading Tidelift CLI"
