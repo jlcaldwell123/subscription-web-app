@@ -33,4 +33,4 @@ jobs:
           echo "Setting permissions"
           chmod +x tidelift
           echo "Runnning alignment and saving to Tidelift"
-          ./tidelift alignment save --wait
+          ./tidelift alignment save --branch=CLI_Test --wait
