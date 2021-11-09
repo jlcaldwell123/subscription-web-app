@@ -27,18 +27,10 @@ jobs:
           npm run build
       - name: Scan
         continue-on-error: true
-        uses: tidelift/scan-action@main
-        env:
-          TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
-          TIDELIFT_ORGANIZATION: ${{ secrets.TIDELIFT_ORGANIZATION }}
-          TIDELIFT_PROJECT: ${{ secrets.TIDELIFT_PROJECT }}
-      - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@v0.5.1
-        with:
-          args: --acl public-read --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_DEV_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "dist/subscription-web-app"
+        run: |
+          echo "Downloading Tidelift CLI"
+          curl https://download.tidelift.com/cli/tidelift -o tidelift
+          echo "Setting permissions"
+          chmod +x tidelift
+          echo "Runnning alignment and saving to Tidelift"
+          ./tidelift alignment save --wait
