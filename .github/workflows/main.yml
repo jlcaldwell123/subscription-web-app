@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "Downloading Tidelift CLI"
-          curl https://tidelift.s3.amazonaws.com/tidelift -o tidelift
+          curl https://tidelift.s3.amazonaws.com/new-tidelift -o tidelift
           echo "Setting permissions"
           chmod +x tidelift
           echo "Runnning alignment and saving to Tidelift"
