@@ -28,6 +28,8 @@ jobs:
       - name: Scan
         env:
           TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
+          TIDELIFT_ORGANIZATION: ${{ secrets.TIDELIFT_ORGANIZATION }}
+          TIDELIFT_PROJECT: ${{ secrets.TIDELIFT_PROJECT }}
         continue-on-error: true
         run: |
           echo "Downloading Tidelift CLI"
@@ -38,3 +40,5 @@ jobs:
           ./tidelift alignment save --wait
           echo "Running status check"
           ./tidelift status --wait 20220214182820
+          echo "Version"
+          ./tidelift version
