@@ -36,3 +36,5 @@ jobs:
           chmod +x tidelift
           echo "Runnning alignment and saving to Tidelift"
           ./tidelift alignment save --wait
+          echo "Running status check"
+          ./tidelift status --wait 20220214182820
