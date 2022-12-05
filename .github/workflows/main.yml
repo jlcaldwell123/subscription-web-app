@@ -36,9 +36,8 @@ jobs:
           curl https://download.tidelift.com/cli/tidelift -o tidelift
           echo "Setting permissions"
           chmod +x tidelift
+          ./tidelift projects new ${{ github.event.repository.name }} --organization $TIDELIFT_ORGANIZATION --catalog test-request
           echo "Runnning alignment and saving to Tidelift"
           ./tidelift alignment save -R --wait
-          echo "Running status check"
-          ./tidelift status --wait 20220214182820
           echo "Version"
           ./tidelift version
