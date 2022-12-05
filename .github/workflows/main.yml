@@ -25,7 +25,7 @@ jobs:
         run: |
           npm i
           npm run build
-      - name: Scan
+      - name: Set up Project
         env:
           TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
           TIDELIFT_ORGANIZATION: ${{ secrets.TIDELIFT_ORGANIZATION }}
@@ -37,7 +37,12 @@ jobs:
           echo "Setting permissions"
           chmod +x tidelift
           ./tidelift projects new ${{ github.event.repository.name }} --organization $TIDELIFT_ORGANIZATION --catalog test-request
+      - name: Scan
+        env:
+          TIDELIFT_API_KEY: ${{ secrets.TIDELIFT_API_KEY }}
+          TIDELIFT_ORGANIZATION: ${{ secrets.TIDELIFT_ORGANIZATION }}
+          TIDELIFT_PROJECT: ${{ secrets.TIDELIFT_PROJECT }}
+        continue-on-error: true
+        run: |
           echo "Runnning alignment and saving to Tidelift"
           ./tidelift alignment save -R --wait
-          echo "Version"
-          ./tidelift version
